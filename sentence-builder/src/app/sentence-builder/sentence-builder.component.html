@@ -1,0 +1,58 @@
+<mat-card class="card-container w-100">
+  <mat-card-content>
+    <!-- Title -->
+    <h1>Build your sentence !</h1>
+
+    <!-- Sentence selectors-->
+    <section class="input-container mb-2">
+      <mat-form-field class="w-75 me-2" appearance="outline">
+        <mat-label>Select</mat-label>
+        <mat-select
+          [(ngModel)]="selectedWordType"
+          (ngModelChange)="onWordTypeChange($event)"
+        >
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-75 me-2" appearance="outline">
+        <mat-label>Select</mat-label>
+        <mat-select [(ngModel)]="selectedWord">
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        class="add-word-button ms-2"
+        style="background: #2b334e; color: #fff"
+        mat-raised-button
+        (click)="addWord()"
+      >
+        Add
+      </button>
+    </section>
+
+    <!-- Sentence -->
+    <section
+      class="sentence-container w-100 p-2 d-flex mb-2 align-items-center"
+    >
+      <p class="text-wrap m-0 py-4">
+        {{ !!currentSentence ? currentSentence : "No sentence" }}
+      </p>
+    </section>
+
+    <!-- Buttons -->
+    <section class="d-flex justify-content-end">
+      <button mat-button class="ms-2" (click)="clearSentence()">Clear</button>
+      <button
+        class="ms-2"
+        style="background: #2b334e; color: #fff"
+        mat-raised-button
+      >
+        Save
+      </button>
+    </section>
+  </mat-card-content>
+</mat-card>
