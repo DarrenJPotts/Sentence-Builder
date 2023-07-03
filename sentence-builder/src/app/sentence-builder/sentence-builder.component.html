@@ -48,7 +48,10 @@
     </section>
 
     <!-- Buttons -->
-    <section class="d-flex justify-content-end">
+    <section class="button-container">
+      <button mat-button class="ms-2" (click)="removeWord()">
+        Remove Last
+      </button>
       <button mat-button class="ms-2" (click)="clearSentence()">Clear</button>
       <button
         class="ms-2"
@@ -59,5 +62,7 @@
         Save
       </button>
     </section>
+    <mat-divider class="my-4" />
+    <app-sentence-list [sentences]="sentenceList" />
   </mat-card-content>
 </mat-card>

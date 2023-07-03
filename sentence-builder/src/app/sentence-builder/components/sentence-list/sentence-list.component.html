@@ -1,0 +1,12 @@
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> All my sentences </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ul>
+      <li *ngFor="let item of sentences">
+        {{ item.sentence }}
+      </li>
+    </ul>
+  </mat-expansion-panel>
+</mat-accordion>

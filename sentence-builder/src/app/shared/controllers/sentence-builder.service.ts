@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SentenceInterface, WordInterface, WordListInterface } from '@shared';
+import {
+  SentenceInterface,
+  SentenceListInterface,
+  WordInterface,
+  WordListInterface,
+} from '@shared';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -19,6 +24,12 @@ export class SentenceBuilderService {
   public getWordsByType(type: string): Observable<WordListInterface> {
     return this._httpClient.get<WordListInterface>(
       `${this._baseurl}/words/${type}`
+    );
+  }
+
+  public getSentences(): Observable<SentenceListInterface> {
+    return this._httpClient.get<SentenceListInterface>(
+      `${this._baseurl}/sentences`
     );
   }
 

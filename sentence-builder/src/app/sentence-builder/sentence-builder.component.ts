@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SentenceBuilderService, WordType } from '@shared';
+import { SentenceBuilderService, SentenceInterface, WordType } from '@shared';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, filter, first, tap } from 'rxjs';
+import { filter, first, tap } from 'rxjs';
 
 @Component({
   selector: 'app-sentence-builder',
@@ -15,12 +15,22 @@ export class SentenceBuilderComponent implements OnInit {
   public selectedWordType: string = '';
   public selectedWord: string = '';
   public wordsList: string[] = [];
+  public sentenceList?: SentenceInterface[];
 
   constructor(
     private _apiService: SentenceBuilderService,
     private _toastr: ToastrService
   ) {}
 
+  private initialize(): void {
+    this._apiService
+      .getSentences()
+      .pipe(
+        filter((v) => !!v),
+        first()
+      )
+      .subscribe((v) => (this.sentenceList = v.sentences));
+  }
   public onWordTypeChange(value: string): void {
     this._apiService
       .getWordsByType(value)
@@ -60,17 +70,13 @@ export class SentenceBuilderComponent implements OnInit {
           first(),
           tap(() => this._toastr.success('Successfully added sentence'))
         )
-        .subscribe();
+        .subscribe(() => {
+          this.initialize();
+        });
     }
   }
 
   public ngOnInit(): void {
-    this._apiService
-      .getWords()
-      .pipe(
-        filter((v) => !!v),
-        first()
-      )
-      .subscribe((v) => console.log(v));
+    this.initialize();
   }
 }
