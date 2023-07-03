@@ -23,6 +23,11 @@ export class SentenceBuilderComponent implements OnInit {
   ) {}
 
   private initialize(): void {
+    this.currentSentence = '';
+    this.selectedWord = '';
+    this.wordsList = [];
+    this.selectedWordType = '';
+
     this._apiService
       .getSentences()
       .pipe(
