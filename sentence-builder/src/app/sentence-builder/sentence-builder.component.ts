@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SentenceBuilderService, WordType } from '@shared';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, filter, first, tap } from 'rxjs';
 
 @Component({
   selector: 'app-sentence-builder',
@@ -6,15 +9,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sentence-builder.component.scss'],
 })
 export class SentenceBuilderComponent implements OnInit {
-  public currentSentence: string = '';
-  // Todo set to word type enum
-  public selectedWordType: any;
-  // Todo set to word loaded from backend
-  public selectedWord: string = '';
+  public wordTypeEnum = WordType;
 
-  public onWordTypeChange(value: any): void {
-    // Todo load word using api service
-    console.log('Changed...');
+  public currentSentence: string = '';
+  public selectedWordType: string = '';
+  public selectedWord: string = '';
+  public wordsList: string[] = [];
+
+  constructor(
+    private _apiService: SentenceBuilderService,
+    private _toastr: ToastrService
+  ) {}
+
+  public onWordTypeChange(value: string): void {
+    this._apiService
+      .getWordsByType(value)
+      .pipe(
+        filter((v) => !!v),
+        first()
+      )
+      .subscribe((v) => (this.wordsList = v.words));
   }
 
   public addWord(): void {
@@ -36,8 +50,27 @@ export class SentenceBuilderComponent implements OnInit {
   }
 
   public addSentence(): void {
-    // Todo save sentence to backend
+    if (this.currentSentence.trim() !== '') {
+      this._apiService
+        .addSentence({
+          sentence: this.currentSentence,
+        })
+        .pipe(
+          filter((v) => !!v),
+          first(),
+          tap(() => this._toastr.success('Successfully added sentence'))
+        )
+        .subscribe();
+    }
   }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this._apiService
+      .getWords()
+      .pipe(
+        filter((v) => !!v),
+        first()
+      )
+      .subscribe((v) => console.log(v));
+  }
 }

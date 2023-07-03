@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SentenceInterface, WordInterface } from '@shared';
+import { SentenceInterface, WordInterface, WordListInterface } from '@shared';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -12,11 +12,20 @@ export class SentenceBuilderService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  public getWordsByType(): Observable<WordInterface[]> {
-    return of([{}]);
+  public getWords(): Observable<WordInterface[]> {
+    return this._httpClient.get<WordInterface[]>(`${this._baseurl}/words`);
+  }
+
+  public getWordsByType(type: string): Observable<WordListInterface> {
+    return this._httpClient.get<WordListInterface>(
+      `${this._baseurl}/words/${type}`
+    );
   }
 
   public addSentence(sentence: SentenceInterface): Observable<boolean> {
-    return of(true);
+    return this._httpClient.post<boolean>(
+      `${this._baseurl}/sentence`,
+      sentence
+    );
   }
 }

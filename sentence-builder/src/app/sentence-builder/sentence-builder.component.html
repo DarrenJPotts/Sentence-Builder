@@ -11,22 +11,26 @@
           [(ngModel)]="selectedWordType"
           (ngModelChange)="onWordTypeChange($event)"
         >
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
+          <mat-option
+            *ngFor="let item of wordTypeEnum | keyvalue"
+            value="{{ item.key }}"
+            >{{ item.value }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="w-75 me-2" appearance="outline">
         <mat-label>Select</mat-label>
         <mat-select [(ngModel)]="selectedWord">
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
+          <mat-option *ngFor="let item of wordsList" value="{{ item }}">{{
+            item
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <button
         class="add-word-button ms-2"
-        style="background: #2b334e; color: #fff"
+        color="primary"
         mat-raised-button
         (click)="addWord()"
       >
@@ -48,8 +52,9 @@
       <button mat-button class="ms-2" (click)="clearSentence()">Clear</button>
       <button
         class="ms-2"
-        style="background: #2b334e; color: #fff"
+        color="primary"
         mat-raised-button
+        (click)="addSentence()"
       >
         Save
       </button>
