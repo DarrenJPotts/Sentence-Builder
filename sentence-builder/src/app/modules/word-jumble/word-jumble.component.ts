@@ -36,6 +36,14 @@ export class WordJumbleComponent implements OnInit {
         this.currentSentence = '';
         this.wordList = v.words;
       });
+
+    this._apiService
+      .getSentences()
+      .pipe(
+        filter((v) => !!v),
+        first()
+      )
+      .subscribe((v) => (this.sentenceList = v.sentences));
   }
 
   public addWord(word: string): void {
