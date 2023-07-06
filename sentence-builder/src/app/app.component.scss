@@ -1,11 +1,46 @@
 .app-container {
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  margin: 0;
+}
+
+.tab-container {
   align-items: center;
-  background: linear-gradient(to right bottom, #34375a, #4f3e6a);
   color: #fff;
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: center;
   width: 100%;
-  flex: 1;
+}
+
+.purple-gradient {
+  background: linear-gradient(to right bottom, #34375a, #4f3e6a);
+}
+
+.red-gradient {
+  background: linear-gradient(to right bottom, #5a3434, #6a3e3e);
+}
+
+.green-gradient {
+  background: linear-gradient(to right bottom, #345a37, #506a3e);
+}
+.tab-content {
+  height: 100vh;
+  display: flex;
+  width: 75%;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-tab-group {
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .tab-content {
+    width: 100%;
+  }
 }

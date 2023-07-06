@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {
+  RandomWordListInterface,
   SentenceInterface,
   SentenceListInterface,
   WordInterface,
@@ -37,6 +38,12 @@ export class SentenceBuilderService {
     return this._httpClient.post<boolean>(
       `${this._baseurl}/sentence`,
       sentence
+    );
+  }
+
+  public getRandomWords(length: number = 10): Observable<RandomWordListInterface> {
+    return this._httpClient.get<RandomWordListInterface>(
+      `${this._baseurl}/random-words/${length}`
     );
   }
 }

@@ -1,0 +1,44 @@
+<mat-card class="card-container w-100">
+  <mat-card-content>
+    <!-- Title -->
+    <h1>Try Make a Sentence from this Word Jumble!</h1>
+
+    <!-- Sentence Chips-->
+    <section>
+      <mat-chip-listbox class="d-flex justify-content-center">
+        <mat-chip
+          *ngFor="let item of wordList"
+          [value]="item.word"
+          (click)="addWord(item.word)"
+          >{{ item.word }}</mat-chip
+        >
+      </mat-chip-listbox>
+    </section>
+    <!-- Sentence -->
+    <section
+      class="sentence-container w-100 p-2 d-flex mb-2 align-items-center"
+    >
+      <p class="text-wrap m-0 py-4">
+        {{ !!currentSentence ? currentSentence : "No sentence" }}
+      </p>
+    </section>
+
+    <!-- Buttons -->
+    <section class="button-container">
+      <button mat-button class="ms-2" (click)="removeWord()">
+        Remove Last
+      </button>
+      <button mat-button class="ms-2" (click)="restart()">Restart</button>
+      <button
+        class="ms-2"
+        color="primary"
+        mat-raised-button
+        (click)="addSentence()"
+      >
+        Save
+      </button>
+    </section>
+    <mat-divider class="my-4" />
+    <app-sentence-list [sentences]="sentenceList" />
+  </mat-card-content>
+</mat-card>

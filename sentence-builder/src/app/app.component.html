@@ -1,3 +1,19 @@
-<main class="app-container px-2">
-  <app-sentence-builder class="d-flex w-75 justify-content-center" />
+<main class="app-container h-100">
+  <mat-tab-group>
+    <mat-tab label="Sentence Builder">
+      <div class="tab-container purple-gradient">
+        <app-sentence-builder class="tab-content" />
+      </div>
+    </mat-tab>
+    <mat-tab label="Pick the Type">
+      <div class="tab-container red-gradient">
+        <app-pick-the-type class="tab-content" />
+      </div>
+    </mat-tab>
+    <mat-tab label="Word Jumble">
+      <div class="tab-container green-gradient">
+        <app-word-jumble class="tab-content" />
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </main>

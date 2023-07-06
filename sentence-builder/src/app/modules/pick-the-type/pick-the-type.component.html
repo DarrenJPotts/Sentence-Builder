@@ -1,0 +1,36 @@
+<mat-card class="card-container w-100">
+  <mat-card-content>
+    <!-- Title -->
+    <h1>Pick the Word Type!</h1>
+    <!-- Progress Indicator  -->
+    <mat-progress-bar
+      mode="determinate"
+      [value]="progressCorrect"
+    ></mat-progress-bar>
+    <!-- Word  -->
+    <section>
+      <div class="d-flex justify-content-center p-5">
+        <p class="fs-1">
+          {{ currentWord ? currentWord.word : "No Word! Press Restart" }}
+        </p>
+      </div>
+    </section>
+
+    <!-- Word Types -->
+    <section>
+      <mat-chip-listbox class="d-flex justify-content-center">
+        <mat-chip
+          *ngFor="let item of wordTypeEnum | keyvalue"
+          [value]="item.value"
+          (click)="confirmWord(item.value)"
+          >{{ item.key }}</mat-chip
+        >
+      </mat-chip-listbox>
+    </section>
+
+    <!--  Buttons -->
+    <section class="button-container">
+      <button mat-button class="ms-2" (click)="restart()">Restart</button>
+    </section>
+  </mat-card-content>
+</mat-card>
